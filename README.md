@@ -241,6 +241,3 @@ eNivaran is an ML-powered road safety and civic issue reporting system designed 
 
 ---
 
-**Team:** DevBytes  
-**Hackathon:** ESOC-X  
-**Problem Statement:** Code Brown
