@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - eNivaran</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <a href="/" class="login-logo">
+            <i class="bi bi-person-check"></i>
+        </a>
+        <h2>Login to eNivaran</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="flash-{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="post" id="loginForm">
+            <div class="login-type-switch">
+                <input type="radio" id="userLogin" name="loginType" value="user" checked onchange="toggleLoginType()">
+                <label for="userLogin">User Login</label>
+                <input type="radio" id="adminLogin" name="loginType" value="admin" onchange="toggleLoginType()">
+                <label for="adminLogin">Admin Login</label>
+            </div>
+
+            <div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            <button type="submit" id="loginButton">Login</button>
+        </form>
+
+        <div class="signup-link" id="signupLink">
+            New to eNivaran? <a href="{{ url_for('signup') }}">Create an account</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleLoginType() {
+            const isAdmin = document.getElementById('adminLogin').checked;
+            const signupLink = document.getElementById('signupLink');
+            const loginButton = document.getElementById('loginButton');
+            
+            signupLink.style.display = isAdmin ? 'none' : 'block';
+            loginButton.textContent = isAdmin ? 'Admin Login' : 'Login';
+            loginButton.style.background = isAdmin 
+                ? 'linear-gradient(90deg, #dc3545 0%, #c82333 100%)'
+                : 'linear-gradient(90deg, #6f42c1 0%, #8e44ad 100%)';
+        }
+    </script>
+</body>
+</html>

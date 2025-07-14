@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Pothole Reporting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-logo">
+            <!-- Simple SVG icon for modern look -->
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                <circle cx="28" cy="28" r="28" fill="#28a745" opacity="0.13"/>
+                <path d="M18 38V34C18 31.7909 19.7909 30 22 30H34C36.2091 30 38 31.7909 38 34V38" stroke="#28a745" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="28" cy="22" r="6" stroke="#28a745" stroke-width="2.5"/>
+            </svg>
+        </div>
+        <h2>Sign Up</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-messages">
+            {% for category, message in messages %}
+              {% if category == 'error' %} {# Only show errors on signup page #}
+              <li class="flash-{{ category }}">{{ message }}</li>
+              {% endif %}
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('signup') }}" method="post">
+            <div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            <div>
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" required autocomplete="name">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="new-password">
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </div>
+</body>
+</html>
